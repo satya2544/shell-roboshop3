@@ -1,4 +1,4 @@
-#!/bin/bash
+a#!/bin/bash
 
 USERID=$(id -u)
 
@@ -80,8 +80,16 @@ VALIDATE $? "copy mongo repo"
 dnf install mongodb-mongosh -y &>>$LOG_FILE
 VALIDATE $? "Install mongidb client"
 
-mongosh --host $MONGODB_HOST </app/db/master-data.js &>>$LOG_FILE
-VALIDATE $? "load catalogue products"
+
+INDEX=$(mongosh mongodb.daws85s.online --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')" )
+if [ $INDEX -le 0 ]; then
+   mongosh --host $MONGODB_HOST </app/db/master-data.js &>>$LOG_FILE
+   VALIDATE $? "load catalogue products"
+else
+    echo -e "Catalogue products already loades ... $ SKIPPING $N"
+fi
+
+
 
 systemctl restart catalogue
 VALIDATE $? "Creating app directory"
