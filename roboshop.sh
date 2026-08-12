@@ -21,8 +21,7 @@ do
        --output text)
        RECORD_NAME="$DOMAIN_NAME"
    fi
-
-
+   
    echo "$instance: $IP"
 
    
