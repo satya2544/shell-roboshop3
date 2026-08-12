@@ -33,7 +33,7 @@ dnf module disable nodejs -y &>>$LOG_FILE
 dnf module enable nodejs:20 -y &>>$LOG_FILE
 
 dnf install nodejs -y &>>$LOG_FILE
-
+echo -e "Installing Nodejs 20 ... $G Success🖥️🖥️ $N"
 
 id roboshop &>>$LOG_FILE
 if [ $? -ne 0 ]; then
@@ -67,12 +67,12 @@ cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
 
 systemctl daemon-reload
 systemctl enable catalogue &>>$LOG_FILE
-
+echo -e "Catalogue setup ... $G Success🖊️🖊️$N"
 
 cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo
 
 
-dnf install mongodb-mongoshJH -y &>>$LOG_FILE
+dnf install mongodb-mongosh -y &>>$LOG_FILE
 
 
 
@@ -88,3 +88,4 @@ fi
 
 systemctl restart catalogue
 
+echo -e "Loading & Restarting Products ... $G Success🛒🛒 $N"
