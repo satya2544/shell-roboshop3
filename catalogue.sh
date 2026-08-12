@@ -10,6 +10,7 @@ N="\e[0m"
 
 LOGS_FOLDER="/var/log/shell-roboshop"
 SCRIPT_NAME=$( echo $0 | cut -d "." -f1)
+SCRIPT_DIR=$PWD
 MONGODB_HOST=mongodb.daws85s.online
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
 mkdir -p $LOGS_FOLDER
@@ -56,7 +57,7 @@ unzip /tmp/catalogue.zip &>>$LOG_FILE
 VALIDATE $? "unzip catalogue"
 npm install &>>$LOG_FILE
 VALIDATE $? "Install dependencies"
-cp catalogue.service /etc/yum.repos.d/catalogue.service
+cp $SCRIPT_DIR/catalogue.service /etc/yum.repos.d/catalogue.service
 VALIDATE $? "copy systemctl dervice"
 systemctl daemon-reload
 systemctl enable catalogue &>>$LOG_FILE
