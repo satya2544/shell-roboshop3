@@ -12,6 +12,7 @@ LOGS_FOLDER="/var/log/shell-roboshop"
 SCRIPT_NAME=$( echo $0 | cut -d "." -f1)
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
 START_TIME=$(date +%s)
+SCRIPT_DIR=$PWD
 mkdir -p $LOGS_FOLDER
 
 echo "Script started executed at: $(date)" | tee -a $LOG_FILE
@@ -32,10 +33,10 @@ fi
 
 }
 
-dnf install rabbitmq-server -y &>>$LOG_FILE
+dnf install rabbitmq-server -y &>>$LOG_FILE 
 VALIDATE $? "Installing rabbitmq Server"
 
-systemctl enable rabbitmq-server &>>$LOG_FILE
+systemctl enable rabbitmq-server &>>$LOG_FILE 
 VALIDATE $? "Enabling rabbitmq Server"
 
 systemctl start rabbitmq-server &>>$LOG_FILE
