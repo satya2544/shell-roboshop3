@@ -32,20 +32,20 @@ fi
 
 }
 
-dnf install mysql-server -y &>>$LOG_FILE
-VALIDATE $? "Installing MySql Server"
+dnf install rabbitmq-server -y &>>$LOG_FILE
+VALIDATE $? "Installing rabbitmq Server"
 
-systemctl enable mysqld &>>$LOG_FILE
-VALIDATE $? "Enabling MySql Server"
+systemctl enable rabbitmq-server &>>$LOG_FILE
+VALIDATE $? "Enabling rabbitmq Server"
 
-systemctl start mysqld &>>$LOG_FILE
-VALIDATE $? "Starting MySql Server"
-
-
-mysql_secure_installation --set-root-pass RoboShop@1
-VALIDATE $? "Setting up Root Password"
+systemctl start rabbitmq-server &>>$LOG_FILE
+VALIDATE $? "Starting rabbitmq Server"
 
 
+rabbitmqctl add_user roboshop roboshop123
+
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
+VALIDATE $? "Setting up permissionsr"
 
 END_TIME=$(date +%s)
 TOTAL_TIME=$(( $END_TIME - $START_TIME))
