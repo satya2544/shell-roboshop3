@@ -101,7 +101,7 @@ curl -L -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment-
 cd /app 
 unzip /tmp/payment.zip
 
-cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
+cp "$SCRIPT_DIR/payment.service" /etc/systemd/system/payment.service
 systemctl daemon-reload
 
 systemctl enable shipping &>>$LOG_FILE
