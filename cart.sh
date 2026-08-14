@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cartID=$(id -u)
+USERID=$(id -u)
 
 
 R="\e[31m"
@@ -16,7 +16,7 @@ LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
 mkdir -p $LOGS_FOLDER
 
 echo "Script started executed at: $(date)" | tee -a $LOG_FILE
-if [ $cartID -ne 0 ]; then
+if [ $USERID -ne 0 ]; then
      echo "ERROR:: Please run this script with root privelege"
      exit 1 # failure is other then 0
 fi
@@ -42,10 +42,10 @@ VALIDATE $? "Installing NodeJS"
 
 id roboshop &>>$LOG_FILE
 if [ $? -ne 0 ]; then
-   cartadd --system --home /app --shell /sbin/nologin --comment "roboshop system cart" roboshop &>>$LOG_FILE
-   VALIDATE $? "creating system cart"
+   useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
+   VALIDATE $? "creating system user"
 else
-   echo -e "cart already exist ... $Y SKIPPING $N"
+   echo -e "user already exist ... $Y SKIPPING $N"
 fi       
 
 
