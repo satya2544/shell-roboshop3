@@ -3,7 +3,7 @@ Description = Cart Service
 [Service]
 User=roboshop
 // highlight-start
-Environment=REDIS_HOST=redis.daws.85s.online
+Environment=REDIS_HOST=redis.daws85s.online
 Environment=CATALOGUE_HOST=catalogue.daws.85s.online
 Environment=CATALOGUE_PORT=8080
 // highlight-end
